@@ -1,34 +1,70 @@
 print('\n==== PROGRAM PENGHITUNG KEUNTUNGAN ====\n')
 
-hargaBeli = float(input("Masukkan harga beli barang anda = Rp"))
-hargaJual = float(input("Masukkan harga jual barang anda = Rp"))
+hargaBeliInput = float(input("Masukkan harga beli barang anda = Rp"))
+hargaJualInput = float(input("Masukkan harga jual barang anda = Rp"))
 
-untung = hargaJual - hargaBeli
-rugi = hargaBeli - hargaJual
 
-persenUntung = ((hargaJual - hargaBeli)/hargaBeli)*100
-persenRugi = ((hargaBeli - hargaJual)/hargaBeli)*100
+def hitungUntung(hargaBeli, hargaJual):
+    untung = hargaJual - hargaBeli
+    persenUntung = (untung/hargaBeli)*100
+    pesan = print(
+        f'\nAnda untung sebesar Rp{untung} \nPersen Keuntungan = {persenUntung}%'
+    )
+    return pesan
 
-if hargaJual > hargaBeli:
-   print('\nAnda akan untung sebesar = Rp \b',untung,'\nPersentase keuntungan =', persenUntung,'%\n')
-elif hargaJual == hargaBeli:
-   print('\nAnda tidak akan mengalami keuntungan maupun kerugian\n') 
+
+def hitungRugi(hargaBeli, hargaJual):
+    rugi = hargaBeli - hargaJual
+    persenRugi = (rugi/hargaBeli)*100
+    pesan = print(
+        f'\nAnda rugi sebesar Rp{rugi} \nPersen Keuntungan = {persenRugi}%'
+    )
+    return pesan
+
+
+def pesanTidakUntungRugi():
+    pesan = print(f'\nAnda tidak mengalami keuntungan maupun kerugian')
+    return pesan
+
+
+def hitungUntungBaru(persenUntung, hargaBeli):
+    untungBaru = (persenUntung * hargaBeli)/100
+    hargaJualBaru = hargaBeli + untungBaru
+    pesan = print(
+        f'\nAnda akan mengalami keuntungan sebesar Rp{untungBaru}. \nHarga jual yang baru = Rp{hargaJualBaru}'
+    )
+    return pesan
+
+
+def pesanTerimaKasih():
+    pesan = print(f'\nTerima kasih telah menggunakan aplikasi ini!')
+    return pesan
+
+
+untung = hargaBeliInput < hargaJualInput
+rugi = hargaBeliInput > hargaJualInput
+tidakUntungRugi = hargaBeliInput == hargaJualInput
+
+if untung:
+    hitungUntung(hargaBeliInput, hargaJualInput)
+elif tidakUntungRugi:
+    pesanTidakUntungRugi()
 else:
-   print('\nAnda akan rugi sebesar = Rp \b',rugi,'\nPersentase kerugian =', persenRugi,'%\n')
+    hitungRugi(hargaBeliInput, hargaJualInput)
 
-
-if hargaJual < hargaBeli or hargaJual == hargaBeli:
-   inginUntung = bool(int(input('Apakah anda ingin mengganti harga jual anda sehingga mengalami keuntungan? (Jawab dengan 0 untuk TIDAK dan 1 untuk YA) : ')))
-   if inginUntung == True:
-      targetUntung = float(input('\nMasukkan persentase keuntungan yang anda inginkan dari harga beli produk anda = '))
-      untungBaru = (targetUntung*hargaBeli)/100
-      hargaJualBaru = hargaBeli + untungBaru
-      print('\nAnda akan mendapatkan untung sebesar = Rp',untungBaru,'\nHarga jual barang anda yang baru = Rp',hargaJualBaru,'\n')
-      print('==== TERIMA KASIH SUDAH MENGGUNAKAN PROGRAM INI! ====\n')
-   else:
-      print('\n==== TERIMA KASIH SUDAH MENGGUNAKAN PROGRAM INI! ====\n')
+if rugi or tidakUntungRugi:
+    inginUntung = input(f'\nApakah anda ingin untung? (Y/N) : ').lower()
+    if inginUntung == 'y':
+        persenUntungBaruInput = float(
+            input(f'\nMasukkan persentase keuntungan yang ingin anda peroleh = ')
+        )
+        hitungUntungBaru(persenUntungBaruInput, hargaBeliInput)
+        pesanTerimaKasih()
+    elif inginUntung == 'n':
+        pesanTerimaKasih()
 else:
-   print('==== TERIMA KASIH SUDAH MENGGUNAKAN PROGRAM INI! ====\n')
+    pesanTerimaKasih()
+
 
 
    
